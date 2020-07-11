@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../base/react.min.js"></script>
+<script src="../base/react-dom.min.js"></script>
+<script src="../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+
+  /* 
+    总结： 
+      在react中，我们想要给组件的dom添加事件的话，也是 需要在行内添加的方式，事件名字需要写成小驼峰的方式，值利用表达式传入一个函数即可
+
+      注意，在没有渲染的时候，页面中没有真实dom，所以是获取不到dom的
+
+      给虚拟dom结构中的节点添加样式。在行内添加,写成驼峰形式，值是一个函数名，需要用{}包裹
+  */
+
+  // var Hello = React.createClass({
+
+  //   handlerClick: function(){
+  //     console.log('event')
+  //   },
+
+  //   render: function(){
+  //     return (
+  //       <div onClick = { this.handlerClick }>
+  //         点击
+  //       </div>
+  //     )
+  //   }
+  // })
+
+var Hello = React.createClass({
+  handlerClick:function(){
+    alert(1343)
+  },
+  render:function(){
+    return (
+      <button onClick={this.handlerClick}>请点击我~~</button>
+    )
+  }
+})
+
+  ReactDOM.render(
+    <Hello name = 'yyb'/>, 
+    app
+  )
+
+
+</script>
+</html>

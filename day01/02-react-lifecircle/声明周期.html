@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+
+<script src="../../base/react.min.js"></script>
+<script src="../../base/react-dom.min.js"></script>
+<script src="../../base//browser.min.js"></script>
+<script type="text/babel">
+
+var Father = React.createClass({
+    getDefaultProps(){
+        return {
+            name:'zhangsan'
+        }
+        console.log(1);
+        
+    },
+    getInitialState(){
+        console.log(2);
+        return {
+            age:18
+        }
+        
+    },
+    componentWillMount(){
+        this.props.name='lisi'
+        this.setState({
+            age:20
+        })
+
+          fetch('./data/data.json')
+          .then(res=>res.json())
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+    },
+    render(){
+        return(
+            <div>
+            name:{this.props.name}
+            age:{this.state.age}
+            </div>
+        )
+    },
+    componentDidMount(){
+        console.log(3)
+    }
+
+})
+
+
+ReactDOM.render(
+   <Father name='www'/>,
+   app
+)
+
+</script>
+</html>

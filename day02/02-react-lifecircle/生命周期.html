@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+</body>
+<script src="../../base/react.min.js"></script>
+<script src="../../base/react-dom.min.js"></script>
+<script src="../../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+var Father = React.createClass({
+   getDefaultProps(){
+       console.log('01-Father-getDefaultProps-定义输出默认属性')
+       return {
+           name:'zhangsan'
+       }
+   },
+   getInitialState(){
+       console.log('02-Father-getInitialState-定义state');
+       return {
+           age:18
+       }
+   },
+   componentWillMount(){
+       this.props.name = '臭傻逼'
+       this.setState({
+           age:100
+       })
+       console.log('03-Father-componentWillMount-最后一次修改数据-数据获取')
+   },
+   ageChange(){
+       console.log('点击了')
+      this.setState({
+          age:40
+      })
+   },
+   render(){
+    console.log('04-Father-render-VDOM创建')
+    let { age } = this.state
+       return (
+           <div>
+            name:{this.props.name}
+            <hr/>
+            <button onClick = { this.ageChange }>改变年龄</button>
+            age:{this.state.age}
+            <hr/> 
+            <Son age = {age}></Son>
+            </div>
+            )
+   },
+   componentDidMount(){
+    console.log('05-Father-componentDidMount-DOM操作')
+   },
+   shouldComponentUpdate(){
+    console.log( 'Father-shouldComponentUpdate-React性能优化的关键性钩子--决定你的视图是否要渲染')
+    return true   
+},
+componentWillUpdate(newval,oldval){
+    console.log( 'Father-componentWillUpdate-DOM操作-切记不要进行状态更改')
+},
+componentDidUpdate(){
+    console.log( 'Father-componentDidUpdate-DOM操作')
+}
+})
+
+
+var Son = React.createClass({
+    getDefaultProps(){
+      console.log('son-getDefaultProps')
+    },
+    getInitialState(){
+      console.log('son-getInitialState')
+      return {
+        num: 0
+      }
+    },
+    componentWillMount(){
+      console.log('son-componentWillMount')
+      
+    },
+    render(){
+        console.log('son-render')
+        return (
+        <div className = "son-box">
+          <p>
+            son的年龄是:{this.props.age}
+          </p>
+        </div>
+        )
+    },
+    componentDidMount(){
+      console.log('son-componentDidMount')
+    },
+    componentWillReceiveProps(newValue,oldValue){
+      console.log('son-componentWillReceiveProps-记录属性 新旧 两个值 ')
+    },
+    shouldComponentUpdate() {
+      console.log( 'Son-shouldComponentUpdate-React性能优化的关键性钩子--决定你的视图是否要渲染')
+      // return ture || false  默认是false 不更新
+      
+      return true //更新
+    },
+    componentWillUpdate(newValue,oldValue){
+      // document.querySelector('.son-box p').style.background = 'red'
+      console.log( 'Son-componentWillUpdate-DOM操作-切记不要进行状态更改')
+      // this.setState({
+      //   num: 100
+      // })
+    },
+    componentDidUpdate(){
+      document.querySelector('.son-box p').style.background = 'red'
+      console.log( 'Son-componentDidUpdate-DOM操作')
+    },
+    componentWillUnmount(){
+      console.log('Son-componentWillUnmount-善后')
+    }
+})
+
+
+ReactDOM.render(
+    <Father/>,
+    app
+)
+</script>
+</html>

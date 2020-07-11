@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../../base/react.min.js"></script>
+<script src="../../base/react-dom.min.js"></script>
+<script src="../../base//browser.min.js"></script>
+
+
+<script type="text/babel">
+
+
+  /* 
+    总结： props的设置有两个方案
+      1. 外部传入
+      2. 内部设置
+  */
+
+  var Father = React.createClass({
+
+    name: '张三',
+    render: function(){
+      return (
+        <div>
+          father
+          <Son name = { this.name }></Son>
+        </div>
+      )
+    }
+  })
+
+  var Son = React.createClass({
+
+    render: function(){
+      console.log( this )
+      return (
+        <div>
+          son的名字： {this.props.name}
+        </div>
+      )
+    }
+  })
+
+
+  ReactDOM.render(
+    <Father/>, 
+    app
+  )
+
+
+</script>
+</html>

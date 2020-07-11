@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../../base/react.min.js"></script>
+<script src="../../base/react-dom.min.js"></script>
+<script src="../../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+
+  /* 
+    总结： 
+      1. 父-》 子
+
+        父亲定义state   绑定属性在  子组件身上
+
+      2. 子-》 父 （间接影响）
+
+        父定义一个方法  ---》 通过属性绑定在子组件身上  ---》 子组件执行这个方法相当于执行了父组件中的方法
+  */
+
+  // var Father = React.createClass({
+
+    // getInitialState(){
+    //   return {
+    //     name: '二嘎子'
+    //   }
+    // },
+    // nameChange(){
+    //   this.setState({
+    //     name: '二傻子'
+    //   })
+    // },
+    // render: function(){
+    //   let {name} = this.state
+    //   return (
+    //     <div>
+    //         father 
+    //         <hr/>
+    //         <Son name = {name} fn = {this.nameChange}/>
+    //     </div>
+    //   )
+    // }
+
+  // })
+  // var Son = React.createClass({
+
+  //   render: function(){
+  //     console.log(this)
+  //     let {name,fn} = this.props
+  //     return (
+  //       <div>
+  //           <button onClick = { fn }>  换名 </button>
+  //           son的名字： { name }
+  //       </div>
+  //     )
+  //   }
+  // })
+
+
+var Father = React.createClass({
+  getInitialState(){
+    return {
+      name :'zhangsan'
+    }
+  },
+  nameChange(){
+   this.setState({
+     name:'lisi~~~~~'
+   })
+  },
+  render(){
+    let {name} = this.state
+    return(
+      <div>
+        father
+        <hr/>
+        <Son name={name} fn = {this.nameChange('ddd')}></Son>
+        
+        </div>
+    )
+  }
+})
+
+var Son = React.createClass({
+
+  render(){
+    let {name,fn} = this.props
+    return (
+      <div>
+        <button onClick={fn}>换名</button>
+        son的名字： {name}
+        </div>
+    )
+  }
+})
+
+
+  ReactDOM.render(
+    <Father/>, 
+    app
+  )
+
+
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../../base/react.min.js"></script>
+<script src="../../base/react-dom.min.js"></script>
+<script src="../../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+
+  /* 
+    总结： props的设置有两个方案
+      1. 外部传入
+        父组件 -》 子组件   通过属性绑定
+      2. 内部设置
+        通过  es5 getDefaultProps(){}  有一个返回值，返回值的内容就是我们设置的props
+
+        getDefaultProps 执行 顺序在 render 函数的  前
+
+
+        props  数据   ---》 先天的一些特性  ---》 后期一般不去更改
+  */
+
+  var Father = React.createClass({
+    render: function(){
+      return (
+        <div>
+          father
+          <Son></Son>
+        </div>
+      )
+    }
+  })
+
+  var Son = React.createClass({
+    getDefaultProps: function(){
+      return {
+        name: '二狗子'
+      }
+    },
+    render: function(){
+      console.log( this )
+      return (
+        <div>
+          son的名字： {this.props.name}
+        </div>
+      )
+    }
+  })
+
+
+  ReactDOM.render(
+    <Father/>, 
+    app
+  )
+
+
+</script>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>生命周期-运行中-销毁</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../../base/react.min.js"></script>
+<script src="../../base/react-dom.min.js"></script>
+<script src="../../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+
+  /* 
+    总结： React
+      1. 分为三个阶段： 初始化  运行中   销毁   10
+
+      运行中：  数据的更新
+
+          * props change  || state change
+            ---> (props change   父组件传入props change)componentWillReceiveProps（newValue,oldValue）
+            ---> shouldComponentUpdate(){ return boolean} 不写这个钩子 默认  true, 写了钩子不写 return 默认false 性能优化的关键钩子
+            ---> componentWillUpdate    DOM  注意不要修改状态 否则死循环 
+            ---> componentDidUpdate     DOM
+
+        项目： 
+          性能优化： shouldComponentUpdate
+          业务逻辑： componentWillReceiveProps  路由的监听 --》 tabBar存在与否
+          操作更新后的DOM: componentDidUpdate
+
+
+      销毁： 
+        1. 开关控制
+          {sonFlag || <Son age = {age}/>}
+        2. ReactDOM.unmountComponentAtNode(document.querySelector('#app'))
+
+        React  销毁（ReactDOM.unmountComponentAtNode）  vs      vue 销毁 ($destroy)
+     
+          销毁  DOM结构                                             不会销毁DOM结构
+
+        项目中： 
+          善后
+  */
+
+  var Father = React.createClass({
+    getDefaultProps(){
+      console.log('01-Father-getDefaultProps-定义输出默认属性')
+      return {
+        name: '张三'
+      }
+    },
+    getInitialState(){
+      console.log('02-Father-getInitialState-定义state')
+      return {
+        age: 18,
+        sonFlag: false
+      }
+    },
+    componentWillMount(){
+
+      // 最后一次数据更改
+        this.props.name = '张二嘎子'
+        this.setState({
+          age: 100
+        })
+      // 数据的获取
+
+        // fetch('./data/data.json')
+        //   .then( res => res.json()) //数据进行格式化 res.text()   
+        //   .then( result => console.log( result ) )
+        //   .catch(error => console.log( error ))
+
+
+      console.log('03-Father-componentWillMount-最后一次修改数据-数据获取')
+    },
+    ageChange(){
+      this.setState({
+        age: 2000
+      })
+    },
+    sonChange(){
+      // this.setState({
+      //   sonFlag: !this.state.sonFlag
+      // })
+      ReactDOM.unmountComponentAtNode(document.querySelector('#app'))
+    },
+    render: function(){
+      let {age,sonFlag} = this.state
+      console.log('04-Father-render-VDOM创建')
+      return (
+        <div>
+          <h3>生命周期-初始化</h3>
+          name: { this.props.name } 
+          <hr/>
+          <button onClick = {this.ageChange}> change age </button>
+          age: { this.state.age }
+
+
+          <hr/>
+
+          <button onClick = {this.sonChange}> son 切换</button>
+          {/* sonFlag || <Son age = {age}/> */}
+          <Son age = {age}/>
+        </div>
+      )
+    },
+    componentDidMount(){
+      // console.log(document.querySelector('div'))
+      console.log('05-Father-componentDidMount-DOM操作')
+    },
+    //---------------------------------------------------------------
+
+    shouldComponentUpdate() {
+      console.log( 'Father-shouldComponentUpdate-React性能优化的关键性钩子--决定你的视图是否要渲染')
+      // return ture || false  默认是false 不更新
+
+      return true //更新
+    },
+    componentWillUpdate(newValue,oldValue){
+      console.log( 'Father-componentWillUpdate-DOM操作-切记不要进行状态更改')
+    },
+    componentDidUpdate(){
+      console.log( 'Father-componentDidUpdate-DOM操作')
+    }
+
+  })
+
+
+  var Son = React.createClass({
+    getDefaultProps(){
+      console.log('son-getDefaultProps')
+    },
+    getInitialState(){
+      console.log('son-getInitialState')
+
+      return {
+        num: 0
+      }
+    },
+    componentWillMount(){
+      console.log('son-componentWillMount')
+      
+    },
+    render(){
+      console.log('son-render')
+
+      return (
+        <div className = "son-box">
+          <p>
+            son: { this.props.age  }
+          </p>
+        </div>
+      )
+    },
+    componentDidMount(){
+      console.log('son-componentDidMount')
+    },
+    componentWillReceiveProps(newValue,oldValue){
+      console.log('son-componentWillReceiveProps-记录属性 新旧 两个值 ')
+    },
+    shouldComponentUpdate() {
+      console.log( 'Son-shouldComponentUpdate-React性能优化的关键性钩子--决定你的视图是否要渲染')
+      // return ture || false  默认是false 不更新
+      
+      return true //更新
+    },
+    componentWillUpdate(newValue,oldValue){
+      // document.querySelector('.son-box p').style.background = 'red'
+      console.log( 'Son-componentWillUpdate-DOM操作-切记不要进行状态更改')
+      // this.setState({
+      //   num: 100
+      // })
+    },
+    componentDidUpdate(){
+      document.querySelector('.son-box p').style.background = 'red'
+      console.log( 'Son-componentDidUpdate-DOM操作')
+    },
+    componentWillUnmount(){
+      console.log('Son-componentWillUnmount-善后')
+    }
+  })
+
+  ReactDOM.render(
+    <Father/>, 
+    app
+  )
+
+
+</script>
+</html>

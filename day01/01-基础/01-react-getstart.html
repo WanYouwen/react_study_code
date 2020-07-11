@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>创建组件</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base//browser.min.js"></script>
+
+  <script type="text/babel">
+    /* 
+    总结： 
+      1. react.min.js   -> React  --> createClass(options) 创建组件的
+      2. react-dom.min.js -> ReactDOM  -> render() arg1 组件(标签化写法)   arg2  容纳组件的容器  app
+      3. jsx语法   javascript + xml  --> {js语法}
+      4. 给组件添加一个属性
+        <Hello name = 'yyb'/>
+      5. 浏览器的React调试工具
+        组件   ---》 属性
+  */
+
+    // var Hello = React.createClass(options)
+    // var Hello = React.createClass({
+    //   // render: (h) => h()
+
+    //   // render: function(){return (jsx语法糖)}
+
+    //   render: function(){
+    //     //jsx语法糖里面要求有唯一的根元素
+    //     return (
+    //       <div>
+    //        { /* 注释 */}
+    //         hello React.js { 1+1 }
+    //       </div>
+    //     )
+    //   }
+    // })
+
+    console.log(React);
+
+    var Hello = React.createClass({
+      render: function () {
+        return <div>hello ~~~~</div>;
+      },
+    });
+
+    // 组件既可以写成单标签 也可以写成双标签
+    // ReactDOM.render(arg,arg2)  arg1 组件   arg2  容纳组件的容器
+
+    // ReactDOM.render(
+    //   <Hello name = 'yyb'/>,
+    //   // document.querySelector('#app')
+    //   app
+    // )
+
+    ReactDOM.render(<Hello />, document.querySelector('#app'));
+  </script>
+</html>

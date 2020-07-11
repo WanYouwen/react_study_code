@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>无状态组件</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../../base/react.min.js"></script>
+<script src="../../base/react-dom.min.js"></script>
+<script src="../../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+
+  /* 
+    总结： 
+      1. 无状态组件就是一个函数，这个函数接收一个返回值， 返回值就是VDOM
+      2. 这个函数可以接收一个props参数, //指的是当前组件身上绑定的属性
+      3. 无状态指的是  无数据（state）
+  */
+
+  var Pure  = function(props){
+    return (
+      <div>
+        无状态组件
+      </div>
+    )
+  }
+
+
+  ReactDOM.render(
+    <Pure name = 'yyb'/>, 
+    app
+  )
+
+
+</script>
+</html>
