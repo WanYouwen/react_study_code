@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>语法支持</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<script src="../base/react.min.js"></script>
+<script src="../base/react-dom.min.js"></script>
+<script src="../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+
+  /* 
+    总结： 语法支持
+      常规的js书写都可以
+  */
+
+  // var Hello = React.createClass({
+
+  //   render: function(){
+  //     return (
+  //       <div>
+  //         number: { 100 }
+  //         <hr/>
+  //         string: { 'ssss' }
+  //         <hr/>
+  //         boolean: { true? 'true': 'false' }
+  //         <hr/>
+  //         undefined: { undefined }
+  //         <hr/>
+  //         null: { null }
+  //         <hr/>
+  //         fn: { (function(){ return 2 })() }
+  //         <hr/>
+  //         obj: {{a:'a'}.a}
+  //         <hr/>
+
+  //         arr: { [1,2,3,4].map(function(v){ return v }) }
+  //         {/* alert: { alert( 1 ) } */}
+  //      {  /*  console.log: { console.log( 'aa' ) } */}
+  //       </div>
+  //     )
+  //   }
+  // })
+
+
+  // ReactDOM.render(
+  //   <Hello name = 'yyb'/>, 
+  //   app
+  // )
+
+ var  Hello = React.createClass({
+   render:function(){
+     return(
+      <div>
+     number:{100}
+     <hr/>
+     string:{'aaaa'}
+     <hr/>
+     boolean:{true?'true':'false'}
+     <hr/>
+     undefined: { undefined }
+     null: { null }
+    <hr/>
+    fn: { (function(){ return 2 })() }
+    <hr/>
+    obj: {{a:'a'}.a}
+    <hr/>
+    arr: { [1,2,3,4].map(function(v){ return v }) }
+    <hr/>
+    arr: { [1,2,3,4] }
+    alert: { alert( 1 ) }
+    console.log: { console.log( 'aa' ) } 
+     </div>
+     )
+   }
+ })
+
+ReactDOM.render(
+  <Hello/>,
+  app
+)
+
+
+</script>
+</html>

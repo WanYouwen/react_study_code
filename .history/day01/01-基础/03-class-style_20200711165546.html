@@ -73,30 +73,15 @@
     });
 
     let Myhello = React.createClass({
-      style: {
-        background: '#003',
-        width: 200,
-        height: 200,
-      },
-      handerClick: function (e) {
-        console.log(e, '点击');
-      },
       render: function () {
         console.log('-=---------');
         console.log(this, '组件内的this值的是当前组件');
         console.log('-=---------');
-        return (
-          <div>
-            <div style={this.style}></div>
-            这是我的新增组件
-            <div onClick={this.handerClick}>提交按钮</div>
-          </div>
-        );
+        return <div style={{ background: '003' }}>这是我的新增组件</div>;
       },
     });
 
-    let Son =
-      // ReactDOM.render(<Hello name="wyw" />, app);
-      ReactDOM.render(<Myhello />, app);
+    // ReactDOM.render(<Hello name="wyw" />, app);
+    ReactDOM.render(<Myhello />, app);
   </script>
 </html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>类名-样式</title>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../base/react.min.js"></script>
+<script src="../base/react-dom.min.js"></script>
+<script src="../base//browser.min.js"></script>
+
+<script type="text/babel">
+
+
+  /* 
+    总结： 
+      类名  ： className 
+      样式  ： style = { { styleName: value } }  React推荐我们使用行内样式
+      组件内的 this 指的是当前组件
+  */
+
+  // var Hello = React.createClass({
+
+  //   style: {
+  //     background: 'blue'
+  //   },
+
+  //   render: function(){
+  //     console.log('====================================');
+  //     console.log(this);
+  //     console.log('====================================');
+  //     return (
+  //       <div className = 'box' style = { this.style }>
+  //         {/* <div className = 'box' style = { {background: 'blue'} }> */}
+  //         类名添加 - 样式添加
+  //       </div>
+  //     )
+  //   }
+  // })
+
+
+  // ReactDOM.render(
+  //   <Hello name = 'yyb'/>, 
+  //   app
+  // )
+
+  var Hello = React.createClass({
+style:{
+background:'yellow',
+width: 100,
+height: 100
+},
+    render:function(){
+      return(
+        <div className="box" style= {this.style}>
+        添加类名
+          <div className="inner" style={{background:'blue',width:50,height:50}}>inner</div>
+        </div>
+      )
+    }
+  })
+
+ReactDOM.render(
+  <Hello name="wyw"/>,
+  app
+
+)
+
+
+</script>
+</html>
