@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base//browser.min.js"></script>
+
+  <script type="text/babel">
+    /* 
+    总结： 
+      1. 父-》 子
+
+        父亲定义state   绑定属性在  子组件身上
+
+      2. 子-》 父 （间接影响）
+
+        父定义一个方法  ---》 通过属性绑定在子组件身上  ---》 子组件执行这个方法相当于执行了父组件中的方法
+
+      3. ref 非父子组件通信
+
+        1. ref = name
+          问题 ： 输出有结果  使用为 {}   render
+
+          分析： refs标记还没有打上去 
+
+          解决： 我们放在外面的方法中， 
+
+        2. 官方推荐： ref可以是一个函数
+          <Content ref = { el => this.content = el}/>
+          <Content ref = {(el)=>{this.content = el}}/>
+        3. 16.3新版本中除了一个新的方法
+
+            this.myRef = React.createRef()
+
+            <Content ref = { this.myRef }/>
+
+        不要过度使用
+
+
+  */
+
+    // var Button = React.createClass({
+    //   render() {
+    //     return (
+    //       <div>
+    //         <button onClick={this.props.change}>点击</button>
+    //       </div>
+    //     );
+    //   },
+    // });
+
+    // var Content = React.createClass({
+    //   getInitialState() {
+    //     return {
+    //       msg: 'hello react.js',
+    //     };
+    //   },
+    //   contentChange() {
+    //     this.setState({
+    //       msg: 'hello Yyb',
+    //     });
+    //   },
+    //   render() {
+    //     return <div>content: {this.state.msg}</div>;
+    //   },
+    // });
+
+    var Father = React.createClass({
+      change() {
+        this.content.contentChange();
+      },
+      ChangeName() {},
+      render() {
+        return (
+          <div>
+            <h3>father</h3>
+            <hr />
+
+            {/**
+               <Button ref="btn" change={this.change} />
+            <hr />
+            <Content
+              ref={(el) => {
+                this.content = el;
+              }}
+            />
+              */}
+
+            <ChangeBtn change={this.ChangeName} />
+          </div>
+        );
+      },
+    });
+    let ChangeBtn = React.createClass({
+      render() {
+        return (
+          <div>
+            <button onClick={this.props.ChangeName}>改变同级方框的姓名</button>
+          </div>
+        );
+      },
+    });
+    let VarContent = React.createClass({
+      getInitialState() {
+        return {
+          msg: 'heool word!',
+        };
+      },
+      nameChange() {
+        this.setState({
+          msg: 'heool joy!',
+        });
+      },
+      render() {
+        return <div>姓名：{this.state.msg}</div>;
+      },
+    });
+
+    ReactDOM.render(<Father />, app);
+  </script>
+</html>

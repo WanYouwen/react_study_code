@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base//browser.min.js"></script>
+
+  <script type="text/babel">
+    /* 
+    总结： 状态  state
+
+      设置一个状态  ： 
+        getInitialState(){return {stateName: stateValue}}
+
+      更改一个状态： 
+        setState({
+          stateName: newStateValue
+        })
+
+  */
+
+    var Hello = React.createClass({
+      // getInitialState(){
+      //   return {
+      //     num: 100
+      //   }
+      // },
+      // changeState(){
+      //   this.setState({
+      //     num: 200
+      //   })
+      // },
+      // render: function(){
+      //   console.log( this )
+      //   return (
+      //     <div>
+      //         <button onClick = {this.changeState}>点击</button>
+      //         { this.state.num }
+      //     </div>
+      //   )
+      // }
+
+      getInitialState() {
+        return {
+          num: 100,
+        };
+      },
+      change() {
+        this.setState({
+          num: 300,
+        });
+      },
+      render: function () {
+        console.log(this);
+        return (
+          <div>
+            <button onClick={this.change}>点击</button>
+            <p> {this.state.num} </p>
+          </div>
+        );
+      },
+    });
+
+    ReactDOM.render(<Hello name="yyb" />, app);
+  </script>
+</html>

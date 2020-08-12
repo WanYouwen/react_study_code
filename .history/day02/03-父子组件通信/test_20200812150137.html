@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base/browser.min.js"></script>
+
+  <script type="text/babel">
+    //父子组件通信
+    // let Father = React.createClass({
+    //   getInitialState() {
+    //     return {
+    //       name: 'zhangsan',
+    //     };
+    //   },
+    //   nameChange() {
+    //     this.setState({
+    //       name: 'lisi~~~~~',
+    //     });
+    //   },
+    //   render() {
+    //     let { name } = this.state;
+    //     return (
+    //       <div>
+    //         father
+    //         <hr />
+    //         {/**
+    //           <Son name={name} fn={this.nameChange('ddd')}></Son>
+    //           */}
+    //         <Son name={name} fn={() => this.nameChange()} />
+    //       </div>
+    //     );
+    //   },
+    // });
+
+    // var Son = React.createClass({
+    //   render() {
+    //     console.log(this.props, 'props');
+    //     let { fn, name } = this.props;
+    //     return (
+    //       <div>
+    //         son的名字： {this.props.name}
+    //         <button onClick={fn}>换名</button>
+    //       </div>
+    //     );
+    //   },
+    // });
+
+    // 非父子---同级组件通信
+    var Father = React.createClass({
+      change() {
+        this.refs.content.contentChange();
+      },
+      render() {
+        console.log('this.refs ', this.refs);
+        console.log('this', this);
+        return (
+          <div>
+            <h3>father</h3>
+            <hr />
+            <Button ref="btn" change={this.change} />
+            <hr />
+            <Content ref="content" />
+          </div>
+        );
+      },
+    });
+
+    var Button = React.createClass({
+      render() {
+        return (
+          <div>
+            <button onClick={this.props.change}>点击</button>
+          </div>
+        );
+      },
+    });
+
+    var Content = React.createClass({
+      getInitialState() {
+        return {
+          msg: 'hello react.js',
+        };
+      },
+      contentChange() {
+        this.setState({
+          msg: 'hello Yyb',
+        });
+      },
+      render() {
+        return <div>content: {this.state.msg}</div>;
+      },
+    });
+    ReactDOM.render(<Father />, app);
+  </script>
+</html>

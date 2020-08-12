@@ -1,0 +1,13 @@
+$color: red;
+@mixin a (){
+  border: 1px solid red;
+}
+.app-mine-box{
+  background: red;
+  a{
+    @include a
+  }
+}
+
+
+

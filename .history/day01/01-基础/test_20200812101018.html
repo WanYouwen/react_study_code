@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base//browser.min.js"></script>
+
+  <script type="text/babel">
+    const messages = ['React', 'Re: React', 'Re:Re: React'];
+    class Toggle extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { isToggleOn: true };
+
+        // 为了在回调中使用 `this`，这个绑定是必不可少的
+        // this.handleClick = this.handleClick.bind(this);
+      }
+
+      handleClick() {
+        this.setState((state) => ({
+          isToggleOn: !state.isToggleOn,
+        }));
+      }
+
+      render() {
+        return (
+          <div>
+            <button onClick={() => this.handleClick()}>
+              {/** 
+            箭头函数 或者 bind()
+            */}
+              {this.state.isToggleOn ? 'ON' : 'OFF'}
+            </button>
+            {/** 
+           Try changing to isLoggedIn={true}:
+            */}
+            <Greeting isLoggedIn={this.state.isToggleOn} />
+            <Mailbox unreadMessages={messages} />
+            {/**  <ul>{listItems}</ul>*/}
+            <NumberList numbers={numbers} />
+            <Blog posts={posts} />
+            <NameForm />
+            <Reservation />
+          </div>
+        );
+      }
+    }
+    function UserGreeting(props) {
+      return <h1>Welcome back!</h1>;
+    }
+
+    function GuestGreeting(props) {
+      return <h1>Please sign up.</h1>;
+    }
+
+    function Greeting(props) {
+      const isLoggedIn = props.isLoggedIn;
+      if (isLoggedIn) {
+        return <UserGreeting />;
+      }
+      return <GuestGreeting />;
+    }
+    function Mailbox(props) {
+      const unreadMessages = props.unreadMessages;
+      return (
+        <div>
+          <h1>Hello!</h1>
+          {unreadMessages.length > 0 && (
+            <h2>You have {unreadMessages.length} unread messages.</h2>
+          )}
+        </div>
+      );
+    }
+    const numbers = [1, 2, 3, 4, 5];
+    const listItems = numbers.map((number) => <li>{number}</li>);
+    function NumberList(props) {
+      const numbers = props.numbers;
+      const listItems = numbers.map((number) => (
+        <li key={number.toString()}>{number}</li>
+      ));
+      return <ul>{listItems}</ul>;
+    }
+
+    function Blog(props) {
+      const sidebar = (
+        <ul>
+          {props.posts.map((post, index) => (
+            <li key={post.id}>
+              {index} {post.title}
+            </li>
+          ))}
+        </ul>
+      );
+      const content = props.posts.map((post) => (
+        <div key={post.id}>
+          <h3>{post.title}</h3>
+          <p>{post.content}</p>
+        </div>
+      ));
+      return (
+        <div>
+          {sidebar}
+          <hr />
+          {content}
+        </div>
+      );
+    }
+
+    const posts = [
+      { id: 1, title: 'Hello World', content: 'Welcome to learning React!' },
+      {
+        id: 2,
+        title: 'Installation',
+        content: 'You can install React from npm.',
+      },
+    ];
+
+    class NameForm extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { value: '' };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+
+      handleChange(event) {
+        this.setState({ value: event.target.value });
+      }
+
+      handleSubmit(event) {
+        alert('提交的名字: ' + this.state.value);
+        event.preventDefault();
+      }
+
+      render() {
+        return (
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              名字:{this.state.value}
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <input type="submit" value="提交" />
+          </form>
+        );
+      }
+    }
+    class Reservation extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isGoing: true,
+          numberOfGuests: 2,
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+      }
+
+      handleInputChange(event) {
+        const target = event.target;
+        const value = target.name === 'isGoing' ? target.checked : target.value;
+        const name = target.name;
+        console.log(target.name, 'target');
+
+        this.setState({
+          [name]: value,
+        });
+      }
+
+      render() {
+        return (
+          <form>
+            <label>
+              参与:
+              <input
+                name="isGoing"
+                type="checkbox"
+                checked={this.state.isGoing}
+                onChange={this.handleInputChange}
+              />
+            </label>
+            <br />
+            <label>
+              来宾人数:
+              <input
+                name="numberOfGuests"
+                type="number"
+                value={this.state.numberOfGuests}
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </form>
+        );
+      }
+    }
+    console.log(ReactDOM, 'ReactDOM');
+    ReactDOM.render(<Toggle />, app);
+  </script>
+</html>

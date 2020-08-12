@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base/browser.min.js"></script>
+
+  <script type="text/babel">
+    class HomeView extends React.createClass {
+      constructor(props) {
+        super(props);
+        this.state = { isToggleOn: true };
+
+        // 为了在回调中使用 `this`，这个绑定是必不可少的
+        // this.scrollToAnchor = this.scrollToAnchor.bind(this);
+      }
+      scrollToAnchor(anchorName) {
+        // if (anchorName) {
+        // let anchorElement = document.getElementById(anchorName);
+        // if(anchorElement) { anchorElement.scrollIntoView(); }
+        // }
+      }
+      render() {
+        return (
+          <div>
+            <div className="android-be-together-section mdl-typography--text-center">
+              <div className="logo-font android-slogan">
+                be together. not the same.
+              </div>
+              <div className="logo-font android-sub-slogan">
+                welcome to android... be yourself. do your thing. see what's
+                going on.
+              </div>
+              <div className="logo-font android-create-character">
+                <a href="">
+                  <img src="images/andy.png" /> create your android character
+                </a>
+              </div>
+
+              <a onClick={() => this.scrollToAnchor('screens')}>
+                <button className="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                  <i className="material-icons">expand_more</i>
+                </button>
+              </a>
+            </div>
+            <div className="mdl-grid" style={{ height: 800 }}>
+              <a id="screens"></a>
+              跳到这里
+              <br />
+            </div>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<HomeView />, app);
+  </script>
+</html>

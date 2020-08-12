@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base//browser.min.js"></script>
+
+  <script type="text/babel">
+
+
+      /*
+        总结：
+      */
+
+      // var Father = React.createClass({
+
+      //   getInitialState(){
+      //     return {
+      //       name: '二嘎子'
+      //     }
+      //   },
+      //   render: function(){
+      //     let {name} = this.state
+      //     return (
+      //       <div>
+      //           father
+      //           <hr/>
+      //           <Son name = {name}/>
+
+      //       </div>
+      //     )
+      //   }
+      // })
+
+      // var Son = React.createClass({
+
+      //   render: function(){
+      //     console.log(this)
+      //     let {name} = this.props
+      //     return (
+      //       <div>
+      //           son的名字： { name }
+      //       </div>
+      //     )
+      //   }
+      // })
+
+
+
+
+    // var RegisterStepTwo = React.createClass({
+    //         getInitialState(){
+    //           return {visible: true};
+    //         },
+    //       changeVisible(){
+    //         this.setState({visible: !this.state.visible});
+    //       },
+    //       refCb(instance){
+    //         console.log(instance);
+    //       },
+    //       render(){
+    //         return(
+    //           <div>
+    //             <button type="button" onClick={this.changeVisible}>
+    //               {this.state.visible ? '卸载' : '挂载'}ConfirmPass
+    //             </button>
+    //             {
+    //               this.state.visible ?
+    //                 <input ref={this.refCb} />: null
+    //              }
+    //            </div>
+    //          )
+    //       }
+
+    //     })
+
+
+    var HomeView = React.createClass({
+
+
+    scrollToAnchor = (anchorName) => {
+      if (anchorName) {
+          let anchorElement = document.getElementById(anchorName);
+          if(anchorElement) { anchorElement.scrollIntoView(); }
+      }
+    },
+
+    render() {
+
+      return (
+        <div>
+
+          <div className="android-be-together-section mdl-typography--text-center">
+              <div className="logo-font android-slogan">be together. not the same.</div>
+              <div className="logo-font android-sub-slogan">welcome to android... be yourself. do your thing. see what's going on.</div>
+              <div className="logo-font android-create-character">
+                <a href=""><img src="images/andy.png" /> create your android character</a>
+              </div>
+
+              <a onClick={()=>this.scrollToAnchor('screens')}>
+                <button className="android-fab mdl-button mdl-button--colored mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                  <i className="material-icons">expand_more</i>
+                </button>
+              </a>
+          </div>
+
+          <div className="mdl-grid" style={{height: 800}}>
+              <a id="screens"></a>
+              跳到这里
+              <br />
+          </div>
+
+        </div>
+      );
+    }
+
+
+    })
+      // class HomeView extends Component {
+
+
+    // }
+    // export default HomeView;
+
+
+    // var ConfirmPass
+
+         ReactDOM.render(
+        // <Father/>,
+        // <RegisterStepTwo/>,
+        <HomeView/>,
+        app
+      )
+  </script>
+</html>

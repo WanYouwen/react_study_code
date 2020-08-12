@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>生命周期-初始化</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base//browser.min.js"></script>
+
+  <script type="text/babel">
+    var fetch = require('../../base/node_modules/_fetch@1.1.0@fetch/lib/fetch.js')
+      .fetchUrl;
+
+    /* 
+    总结： React
+      1. 分为三个阶段： 初始化  运行中   销毁   10
+
+        初始化： 
+          * getDefaultProps
+            定义默认属性
+          * getInitialState
+            定义state
+          * componentWillMount ------》 vue   created + beforeMount
+                1. 最后一次数据修改
+                2. 数据获取
+                  fetch Promise
+                    要进行数据格式化
+          * render
+            创建-渲染 VDOM
+          * componentDidMount
+            DOM操作
+
+        项目： 
+            * getDefaultProps
+              定义默认属性
+            * getInitialState
+              定义state
+
+            * 数据请求
+              componentWillMount（一般）
+
+              componentDidMount（阿里   数据请求  DOM）
+
+
+
+
+  */
+
+    var Father = React.createClass({
+      getDefaultProps() {
+        return {
+          name: '张三',
+        };
+        console.log('01-Father-getDefaultProps-定义输出默认属性');
+      },
+      getInitialState() {
+        console.log('02-Father-getInitialState-定义state');
+        return {
+          age: 18,
+        };
+      },
+      componentWillMount() {
+        // 最后一次数据更改
+        this.props.name = '张二嘎子';
+        this.setState({
+          age: 100,
+        });
+        // 数据的获取
+
+        fetch('./data/data.json')
+          .then((res) => res.json()) //数据进行格式化 res.text()
+          .then((result) => console.log(result))
+          .catch((error) => console.log(error));
+
+        console.log('03-Father-componentWillMount-最后一次修改数据-数据获取');
+      },
+      render: function () {
+        console.log('04-Father-render-VDOM创建');
+        return (
+          <div>
+            <h3>生命周期-初始化</h3>
+            name: {this.props.name}
+            <hr />
+            age: {this.state.age}
+          </div>
+        );
+      },
+      componentDidMount() {
+        console.log(document.querySelector('div'));
+        console.log('05-Father-componentDidMount-DOM操作');
+      },
+    });
+
+    ReactDOM.render(<Father name="yyb" />, app);
+  </script>
+</html>

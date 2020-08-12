@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base/browser.min.js"></script>
+
+  <script type="text/babel">
+    var RegisterStepTwo = React.createClass({
+      getInitialState() {
+        return { visible: true };
+      },
+      changeVisible() {
+        this.setState({ visible: !this.state.visible });
+      },
+      refCb(instance) {
+        console.log(instance);
+      },
+      render() {
+        return (
+          <div>
+            <button type="button" onClick={this.changeVisible}>
+              {this.state.visible ? '卸载' : '挂载'}ConfirmPass
+            </button>
+            {this.state.visible ? <input ref={this.refCb} /> : null}
+          </div>
+        );
+      },
+    });
+    ReactDOM.render(<RegisterStepTwo />, app);
+  </script>
+</html>

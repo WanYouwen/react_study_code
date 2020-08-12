@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="../../base/react.min.js"></script>
+  <script src="../../base/react-dom.min.js"></script>
+  <script src="../../base/browser.min.js"></script>
+
+  <script type="text/babel">
+    let Father = React.createClass({
+      getInitialState() {
+        return {
+          name: 'zhangsan',
+        };
+      },
+      nameChange() {
+        this.setState({
+          name: 'lisi~~~~~',
+        });
+      },
+      render() {
+        let { name } = this.state;
+        return (
+          <div>
+            father
+            <hr />
+            {/**
+              <Son name={name} fn={this.nameChange('ddd')}></Son>
+              */}
+            <Son
+              name={name}
+              fn={(name) => {
+                this.setState({
+                  name: 'wangyibo',
+                });
+              }}
+              changeName={nameChange('ddd')}
+            />
+          </div>
+        );
+      },
+    });
+
+    // var Son = React.createClass({
+    //   render() {
+    //     let { name, fn } = this.props;
+    //     return (
+    //       <div>
+    //         <button onClick={fn}>换名</button>
+    //         son的名字： {name}
+    //       </div>
+    //     );
+    //   },
+    // });
+    var Son = React.createClass({
+      render() {
+        console.log(this.props, 'props');
+        let { fn, name } = this.props;
+        return (
+          <div>
+            son的名字： {this.props.name}
+            <button onClick={fn}>换名</button>
+          </div>
+        );
+      },
+    });
+
+    ReactDOM.render(<Father />, app);
+  </script>
+</html>
